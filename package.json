@@ -2,10 +2,11 @@
   "name": "kindergartens-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node index",
+    "dev": "SET NODE_ENV=development& nodemon src/index",
+    "test": "SET NODE_ENV=test& jest"
   },
   "keywords": [],
   "author": "",
@@ -13,9 +14,11 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.9.28"
+    "mongoose": "^5.9.28",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "jest": "^26.3.0",
     "nodemon": "^2.0.4"
   }
 }
