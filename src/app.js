@@ -1,12 +1,10 @@
 const express = require('express');
 const morgan = require('morgan');
-const loadEnvironment = require('../config/env');
-const connectToDB = require('../config/db');
+
+require('../config/env').loadEnvironment();
+require('../config/db').connectDB().catch(() => console.log('Error connecting to DB'));
 
 const Kindergarten = require('./models/kindergarten');
-
-loadEnvironment((environment) => console.log(`Loaded ${environment} environment`));
-connectToDB((host) => console.log(`Connected to DB ${host}`));
 
 const app = express();
 
