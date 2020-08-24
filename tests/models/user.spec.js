@@ -106,6 +106,19 @@ describe('User model', () => {
             done();
         });
     });
+
+    describe('Find user', () => {
+        it('should return user when credentials are provided', async (done) => {
+            const user = new User(createUserMock());
+
+            await user.save();
+
+            const userFromDB = await User.findByCredentials(user.username, user.password);
+            expect(userFromDB).not.toBeNull();
+
+            done();
+        })
+    });
 });
 
 const checkForError = async (model, method) => {

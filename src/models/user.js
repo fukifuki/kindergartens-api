@@ -26,6 +26,22 @@ const userSchema = new mongoose.Schema({
     }
 });
 
+userSchema.statics.findByCredentials = async function (username, password) {
+    const user = await this.findOne({ username });
+
+    if(!user) {
+        throw new Error('No such user');
+    }
+
+    const isMatch = bcrypt.compare(password, user.password);
+
+    if(!isMatch) {
+        throw new Error('Unable to authenticate');
+    }
+
+    return user;
+};
+
 userSchema.pre('save', async function(next) {
     const user = this;
 
