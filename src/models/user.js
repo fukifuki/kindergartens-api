@@ -23,7 +23,10 @@ const userSchema = new mongoose.Schema({
                 throw new Error('Invalid email address')
             }
         }
-    }
+    },
+    tokens: [{
+        token: String
+    }]
 });
 
 userSchema.statics.findByCredentials = async function (username, password) {
