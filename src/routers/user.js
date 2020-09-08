@@ -1,4 +1,6 @@
 const express = require('express');
+const { authenticate } = require('../middleware/guard');
+
 const {
     createUser,
     readUsers,
@@ -11,12 +13,12 @@ const {
 const router = express.Router();
 
 router.route('/')
-    .post(createUser)
-    .get(readUsers);
+    .post(authenticate, createUser)
+    .get(authenticate, readUsers);
 
 router.route('/:id')
-    .get(readUser)
-    .patch(updateUser)
-    .delete(deleteUser);
+    .get(authenticate, readUser)
+    .patch(authenticate, updateUser)
+    .delete(authenticate, deleteUser);
 
 module.exports = router;

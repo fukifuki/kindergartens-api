@@ -1,4 +1,6 @@
 const express = require('express');
+const { authenticate } = require('../middleware/guard');
+
 const {
     createKindergarten,
     readKindergartens,
@@ -11,12 +13,12 @@ const {
 const router = express.Router();
 
 router.route('/')
-    .post(createKindergarten)
+    .post(authenticate, createKindergarten)
     .get(readKindergartens);
 
 router.route('/:id')
     .get(readKindergarten)
-    .patch(updateKindergarten)
-    .delete(deleteKindergarten);
+    .patch(authenticate, updateKindergarten)
+    .delete(authenticate, deleteKindergarten);
 
 module.exports = router;
