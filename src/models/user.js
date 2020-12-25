@@ -24,6 +24,11 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
+    role: {
+        type: String,
+        enum: ['user', 'publisher'],
+        default: 'user'
+    },
     tokens: [{
         token: String
     }]

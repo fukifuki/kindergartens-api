@@ -1,5 +1,5 @@
 const express = require('express');
-const { authenticate } = require('../middleware/guard');
+const { authenticate, authorize } = require('../middleware/guard');
 
 const {
     createUser,
@@ -9,16 +9,17 @@ const {
     deleteUser
 } = require('../controllers/user');
 
-
 const router = express.Router();
+// router.use(authenticate);
+// router.use(authorize('admin'));
 
 router.route('/')
-    .post(authenticate, createUser)
-    .get(authenticate, readUsers);
+    .post(authenticate, authorize('admin'), createUser)
+    .get(authenticate, authorize('admin'), readUsers);
 
 router.route('/:id')
-    .get(authenticate, readUser)
-    .patch(authenticate, updateUser)
-    .delete(authenticate, deleteUser);
+    .get(authenticate, authorize('admin'), readUser)
+    .patch(authenticate, authorize('admin'), updateUser)
+    .delete(authenticate, authorize('admin'), deleteUser);
 
 module.exports = router;
